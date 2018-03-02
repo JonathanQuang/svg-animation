@@ -19,6 +19,7 @@ var clearBox = function(mouseData){
 }
 
 var growAnim = function(buttonPress){
+	clearBox(0);
 
 	circleRad = 0;
 	growDelta = 5;
@@ -44,6 +45,8 @@ var growAnim = function(buttonPress){
 }
 
 var bouncingAnimation = function(buttonPress){
+	clearBox(0);
+
 	rectObject={'x':0,'y':0,'width':100,'height':50,'vx':5,'vy':5}
 	theRect = document.createElementNS("http://www.w3.org/2000/svg",'rect');
 	theRect.setAttribute('x',rectObject['x']);
@@ -58,11 +61,19 @@ var bouncingAnimation = function(buttonPress){
 		rectObject['x'] += rectObject['vx'];
 		rectObject['y'] += rectObject['vy'];
 		
+		if (rectObject['x'] >= (500-rectObject['width']) || rectObject['x'] <= 0){
+			rectObject['vx'] *= -1;
+		}
+		
+		if (rectObject['y'] >= (500-rectObject['height']) || rectObject['y'] <= 0){
+			rectObject['vy'] *= -1;
+		}
+		
 		theRect.setAttribute('x',rectObject['x']);
 		theRect.setAttribute('y',rectObject['y']);
 	}
 	
-	currentInterval = setInterval(runRectAnimation,50);
+	currentInterval = setInterval(runRectAnimation,10);
 
 }
 
